@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bees'Côte Fleurie — Apiculteur à Honfleur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --honey: #C8882A;
+      --honey-light: #E8A840;
+      --honey-pale: #F5D98A;
+      --cream: #FAF3E0;
+      --cream-dark: #F0E6C8;
+      --dark: #1E160A;
+      --bark: #3D2B10;
+      --sage: #6B7F4A;
+      --sage-light: #8FA46A;
+      --wax: #EDD97A;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--dark);
+      font-family: 'Lora', Georgia, serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    .cursor {
+      width: 20px; height: 20px;
+      border: 2px solid var(--honey);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease, background 0.15s ease;
+      transform: translate(-50%, -50%);
+    }
+    .cursor.hover { transform: translate(-50%, -50%) scale(2); background: rgba(200,136,42,0.15); }
+
+    /* ─── TEXTURE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23FAF3E0'/%3E%3Ccircle cx='1' cy='1' r='0.5' fill='%23E8D4A0' opacity='0.4'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    /* ─── HERO ─── */
+    header {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: radial-gradient(ellipse at 60% 40%, #E8A84022 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, #6B7F4A18 0%, transparent 50%),
+                  var(--cream);
+    }
+
+    .hero-hex-bg {
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 58,17 58,47 30,62 2,47 2,17' fill='none' stroke='%23C8882A' stroke-width='0.5' opacity='0.12'/%3E%3C/svg%3E");
+      background-size: 60px 52px;
+      animation: hexDrift 40s linear infinite;
+    }
+    @keyframes hexDrift { from { background-position: 0 0; } to { background-position: 60px 52px; } }
+
+    .hero-content {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      animation: fadeUp 1.2s ease both;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.3s ease both;
+    }
+
+    .hero-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3.5rem, 10vw, 7.5rem);
+      line-height: 0.95;
+      color: var(--bark);
+      margin-bottom: 0.5rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.5s ease both;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--honey);
+      display: block;
+    }
+
+    .hero-sub {
+      font-family: 'Lora', serif;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--bark);
+      opacity: 0.75;
+      margin: 1.5rem auto 2.5rem;
+      max-width: 500px;
+      font-style: italic;
+      animation: fadeUp 1s 0.7s ease both;
+      opacity: 0;
+    }
+
+    .hero-cta {
+      display: inline-flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp 1s 0.9s ease both;
+      opacity: 0;
+    }
+
+    .btn {
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: none;
+    }
+
+    .btn-primary {
+      background: var(--honey);
+      color: var(--cream);
+      box-shadow: 0 4px 20px rgba(200,136,42,0.35);
+    }
+    .btn-primary:hover { background: var(--honey-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(200,136,42,0.45); }
+
+    .btn-outline {
+      border: 1.5px solid var(--honey);
+      color: var(--honey);
+    }
+    .btn-outline:hover { background: var(--honey); color: var(--cream); transform: translateY(-2px); }
+
+    .hero-bee {
+      position: absolute;
+      font-size: 2.5rem;
+      animation: beeFly 12s ease-in-out infinite;
+      opacity: 0.7;
+      user-select: none;
+    }
+    .hero-bee:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+    .hero-bee:nth-child(2) { top: 70%; right: 12%; animation-delay: -4s; font-size: 1.8rem; }
+    .hero-bee:nth-child(3) { top: 35%; right: 8%; animation-delay: -8s; font-size: 1.4rem; }
+    @keyframes beeFly {
+      0%, 100% { transform: translate(0,0) rotate(-5deg); }
+      25% { transform: translate(15px, -20px) rotate(5deg); }
+      50% { transform: translate(-10px, -35px) rotate(-3deg); }
+      75% { transform: translate(20px, -15px) rotate(8deg); }
+    }
+
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: var(--honey); opacity: 0.6;
+      font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+      animation: bob 2s ease-in-out infinite;
+    }
+    .scroll-hint::after {
+      content: '';
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--honey), transparent);
+    }
+    @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── TOPBAR SOCIAL ─── */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 101;
+      background: var(--bark);
+      padding: 0.5rem 3rem;
+      display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+    }
+    .topbar-text {
+      font-size: 0.75rem;
+      color: var(--cream);
+      opacity: 0.65;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .topbar-divider {
+      width: 1px; height: 14px;
+      background: var(--honey);
+      opacity: 0.4;
+    }
+    .topbar-social {
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .topbar-social a {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.78rem;
+      color: var(--cream);
+      text-decoration: none;
+      opacity: 0.8;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s, color 0.2s;
+      cursor: none;
+    }
+    .topbar-social a:hover { opacity: 1; color: var(--honey-light); }
+    .topbar-social .tb-icon { font-size: 1rem; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 34px; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.2rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(250,243,224,0.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 20px rgba(200,136,42,0.12);
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      color: var(--bark);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--honey); }
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      color: var(--bark);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+      cursor: none;
+    }
+    .nav-links a:hover { color: var(--honey); }
+
+    /* ─── SECTIONS ─── */
+    section { position: relative; z-index: 1; }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--bark);
+      line-height: 1.1;
+      margin-bottom: 2rem;
+    }
+
+    .section-title em { color: var(--honey); font-style: italic; }
+
+    /* ─── À PROPOS ─── */
+    #apropos { background: var(--cream); }
+    .apropos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .apropos-text p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--bark);
+      opacity: 0.85;
+      margin-bottom: 1.2rem;
+    }
+    .apropos-visual {
+      position: relative;
+    }
+    .hex-card {
+      background: linear-gradient(135deg, var(--honey-pale), var(--wax));
+      border-radius: 2rem;
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(200,136,42,0.2);
+    }
+    .hex-card::before {
+      content: '🍯';
+      font-size: 8rem;
+      position: absolute;
+      right: -1rem; bottom: -2rem;
+      opacity: 0.15;
+    }
+    .hex-stat {
+      margin-bottom: 1.5rem;
+    }
+    .hex-stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3rem;
+      color: var(--bark);
+      line-height: 1;
+    }
+    .hex-stat-label {
+      font-size: 0.85rem;
+      color: var(--bark);
+      opacity: 0.65;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ─── ACTIVITÉS ─── */
+    #activites { background: var(--cream-dark); }
+
+    .activites-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .activite-card {
+      background: var(--cream);
+      border-radius: 1.5rem;
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      border: 1px solid rgba(200,136,42,0.1);
+    }
+    .activite-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--honey), var(--honey-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .activite-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(200,136,42,0.15); }
+    .activite-card:hover::after { transform: scaleX(1); }
+
+    .activite-icon {
+      font-size: 2.8rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+    .activite-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      color: var(--bark);
+      margin-bottom: 0.8rem;
+    }
+    .activite-desc {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--bark);
+      opacity: 0.75;
+    }
+
+    /* ─── URGENCE ESSAIM ─── */
+    #essaims {
+      background: var(--bark);
+      position: relative;
+      overflow: hidden;
+    }
+    #essaims::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 58,17 58,47 30,62 2,47 2,17' fill='none' stroke='%23E8A840' stroke-width='0.4' opacity='0.15'/%3E%3C/svg%3E");
+      background-size: 60px 52px;
+    }
+    #essaims .section-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .essaims-text .section-label { color: var(--honey-pale); }
+    .essaims-text .section-title { color: var(--cream); }
+    .essaims-text p {
+      color: var(--cream);
+      opacity: 0.75;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      max-width: 500px;
+      margin-bottom: 2rem;
+    }
+    .urgence-box {
+      background: var(--honey);
+      border-radius: 2rem;
+      padding: 2.5rem 3rem;
+      text-align: center;
+      min-width: 260px;
+      box-shadow: 0 20px 60px rgba(200,136,42,0.4);
+      position: relative; z-index: 1;
+    }
+    .urgence-box .icon { font-size: 3rem; margin-bottom: 1rem; display: block; }
+    .urgence-box .phone {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: var(--cream);
+      display: block;
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      cursor: none;
+    }
+    .urgence-box .phone-label {
+      font-size: 0.8rem;
+      color: var(--cream);
+      opacity: 0.8;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .urgence-box .btn-essaim {
+      display: inline-block;
+      margin-top: 1.5rem;
+      background: var(--cream);
+      color: var(--honey);
+      padding: 0.7rem 1.5rem;
+      border-radius: 100px;
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      cursor: none;
+    }
+    .urgence-box .btn-essaim:hover { background: var(--bark); color: var(--honey-light); }
+
+    /* ─── PHILOSOPHIE ─── */
+    #philosophie { background: var(--cream); }
+    .philosophie-content {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .philosophie-content .section-label,
+    .philosophie-content .section-title { text-align: center; }
+
+    .valeurs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      text-align: left;
+    }
+    .valeur {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 1.5rem 2rem;
+      background: var(--cream-dark);
+      border-radius: 1rem;
+      border-left: 3px solid var(--honey);
+    }
+    .valeur-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .valeur-text strong {
+      display: block;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--bark);
+      margin-bottom: 0.3rem;
+    }
+    .valeur-text p { font-size: 0.95rem; color: var(--bark); opacity: 0.75; line-height: 1.6; }
+
+    /* ─── CONTACT ─── */
+    #contact { background: var(--cream-dark); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-info-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      background: var(--cream);
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+      transition: box-shadow 0.3s ease;
+    }
+    .contact-info-item:hover { box-shadow: 0 8px 25px rgba(200,136,42,0.12); }
+    .contact-info-item span:first-child { font-size: 1.5rem; }
+    .contact-info-item a, .contact-info-item span:last-child {
+      font-size: 0.95rem;
+      color: var(--bark);
+      text-decoration: none;
+      transition: color 0.2s;
+      cursor: none;
+    }
+    .contact-info-item a:hover { color: var(--honey); }
+
+    .social-links {
+      display: flex; gap: 1rem; margin-top: 1.5rem;
+    }
+    .social-btn {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-family: 'Lora', serif;
+      transition: all 0.3s ease;
+      cursor: none;
+    }
+    .social-btn.instagram { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366); color: white; }
+    .social-btn.facebook { background: #1877F2; color: white; }
+    .social-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+
+    .contact-deco {
+      background: linear-gradient(135deg, var(--honey-pale), var(--wax));
+      border-radius: 2rem;
+      padding: 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-deco::before {
+      content: '🐝';
+      font-size: 10rem;
+      position: absolute;
+      right: -2rem; bottom: -3rem;
+      opacity: 0.12;
+      line-height: 1;
+    }
+    .contact-deco-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      color: var(--bark);
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+    }
+    .contact-deco-text em { color: var(--honey); font-style: italic; }
+    .contact-deco p {
+      font-size: 0.95rem;
+      color: var(--bark);
+      opacity: 0.7;
+      line-height: 1.7;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark);
+      padding: 2.5rem;
+      text-align: center;
+      position: relative; z-index: 1;
+    }
+    footer .logo-footer {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+    footer .logo-footer span { color: var(--honey); }
+    footer p {
+      font-size: 0.8rem;
+      color: var(--cream);
+      opacity: 0.4;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.35s; }
+
+    .nav-social {
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .nav-social a {
+      display: flex; align-items: center; gap: 0.35rem;
+      font-family: 'Lora', serif;
+      font-size: 0.82rem;
+      color: var(--bark);
+      text-decoration: none;
+      padding: 0.4rem 0.9rem;
+      border-radius: 100px;
+      border: 1px solid rgba(61,43,16,0.2);
+      transition: all 0.25s ease;
+      cursor: none;
+    }
+    .nav-social a.ig:hover { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366); color: white; border-color: transparent; }
+    .nav-social a.fb:hover { background: #1877F2; color: white; border-color: transparent; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .topbar { padding: 0.5rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+      .topbar-text, .topbar-divider { display: none; }
+      nav { padding: 1rem 1.5rem; top: 42px; }
+      .nav-links { display: none; }
+      .nav-social a span.nav-social-label { display: none; }
+      .apropos-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .activites-grid { grid-template-columns: 1fr; }
+      #essaims .section-inner { flex-direction: column; }
+      .urgence-box { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor"></div>
+
+  <!-- Topbar social -->
+  <div class="topbar">
+    <span class="topbar-text">🐝 Apiculture artisanale · Honfleur</span>
+    <div class="topbar-divider"></div>
+    <div class="topbar-social">
+      <a href="https://www.instagram.com/beescotefleurie" target="_blank">
+        <span class="tb-icon">📸</span> Instagram
+      </a>
+      <div class="topbar-divider"></div>
+      <a href="https://www.facebook.com/share/1NJYEzJt3N/" target="_blank">
+        <span class="tb-icon">👍</span> Facebook
+      </a>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">Bees'<span>Côte Fleurie</span></a>
+    <ul class="nav-links">
+      <li><a href="#apropos">À propos</a></li>
+      <li><a href="#activites">Activités</a></li>
+      <li><a href="#essaims">Essaims</a></li>
+      <li><a href="#philosophie">Notre démarche</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-social">
+      <a href="https://www.instagram.com/beescotefleurie" class="ig" target="_blank">
+        <span>📸</span><span class="nav-social-label">Instagram</span>
+      </a>
+      <a href="https://www.facebook.com/share/1NJYEzJt3N/" class="fb" target="_blank">
+        <span>👍</span><span class="nav-social-label">Facebook</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header>
+    <div class="hero-hex-bg"></div>
+    <span class="hero-bee">🐝</span>
+    <span class="hero-bee">🐝</span>
+    <span class="hero-bee">🐝</span>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Apiculture artisanale • Honfleur • Côte Fleurie</p>
+      <h1 class="hero-title">Bees'<em>Côte Fleurie</em></h1>
+      <p class="hero-sub">Un rucher familial au cœur de la Normandie, pour un miel local produit avec passion et respect des abeilles.</p>
+      <div class="hero-cta">
+        <a href="#activites" class="btn btn-primary">Découvrir</a>
+        <a href="#essaims" class="btn btn-outline">🐝 Urgence essaim</a>
+      </div>
+    </div>
+    <div class="scroll-hint">Défiler</div>
+  </header>
+
+  <!-- À propos -->
+  <section id="apropos">
+    <div class="section-inner">
+      <div class="apropos-grid">
+        <div class="apropos-text reveal">
+          <p class="section-label">Notre histoire</p>
+          <h2 class="section-title">Une apiculture <em>familiale</em> & passionnée</h2>
+          <p>Bees'Côte Fleurie est une petite structure apicole familiale implantée à Honfleur. Nous travaillons à toute petite échelle, avec une approche profondément respectueuse des abeilles et de leur environnement.</p>
+          <p>Notre objectif est simple : prendre soin des colonies, produire un miel local de qualité, et participer activement à la préservation de la biodiversité sur la Côte Fleurie.</p>
+          <p>Chaque intervention et chaque récolte sont réalisées avec soin, dans le respect du vivant.</p>
+        </div>
+        <div class="apropos-visual reveal reveal-delay-2">
+          <div class="hex-card">
+            <div class="hex-stat">
+              <div class="hex-stat-num">🌸</div>
+              <div class="hex-stat-label">Production saisonnière</div>
+            </div>
+            <div class="hex-stat">
+              <div class="hex-stat-num">100%</div>
+              <div class="hex-stat-label">Miel local & artisanal</div>
+            </div>
+            <div class="hex-stat">
+              <div class="hex-stat-num">0€</div>
+              <div class="hex-stat-label">Récupération d'essaims</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Activités -->
+  <section id="activites">
+    <div class="section-inner">
+      <div class="reveal">
+        <p class="section-label">Ce que nous faisons</p>
+        <h2 class="section-title">Nos <em>activités</em></h2>
+      </div>
+      <div class="activites-grid">
+        <div class="activite-card reveal reveal-delay-1">
+          <span class="activite-icon">🍯</span>
+          <h3 class="activite-title">Production de miel</h3>
+          <p class="activite-desc">Miel local produit en petite quantité, au fil des saisons. Un produit authentique, issu de nos ruches normandes, sans compromis sur la qualité.</p>
+        </div>
+        <div class="activite-card reveal reveal-delay-2">
+          <span class="activite-icon">🐝</span>
+          <h3 class="activite-title">Récupération d'essaims</h3>
+          <p class="activite-desc">Intervention gratuite pour récupérer les essaims d'abeilles. Nous intervenons rapidement sur la Côte Fleurie pour sauver vos abeilles et rassurer votre voisinage.</p>
+        </div>
+        <div class="activite-card reveal reveal-delay-3">
+          <span class="activite-icon">🌿</span>
+          <h3 class="activite-title">Préservation des pollinisateurs</h3>
+          <p class="activite-desc">Participation active à la protection des abeilles et des pollinisateurs locaux. Chaque colonie sauvée contribue à la biodiversité de notre territoire.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Urgence essaim -->
+  <section id="essaims">
+    <div class="section-inner">
+      <div class="essaims-text reveal">
+        <p class="section-label">Intervention rapide</p>
+        <h2 class="section-title">Un essaim <em>chez vous ?</em></h2>
+        <p>Pas de panique ! Un essaim d'abeilles est rarement dangereux. Contactez-nous directement, nous intervenons gratuitement sur la Côte Fleurie pour récupérer vos abeilles en toute sécurité.</p>
+        <a href="https://sites.google.com/view/essaims-calvados/accueil" class="btn btn-outline" style="border-color:var(--cream);color:var(--cream);">Voir la page dédiée</a>
+      </div>
+      <div class="urgence-box reveal reveal-delay-2">
+        <span class="icon">🚨</span>
+        <a href="tel:0644260889" class="phone">06 44 26 08 89</a>
+        <p class="phone-label">Appel gratuit • 7j/7</p>
+        <a href="https://sites.google.com/view/essaims-calvados/accueil" class="btn-essaim">Page essaims Calvados →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophie -->
+  <section id="philosophie">
+    <div class="section-inner">
+      <div class="philosophie-content">
+        <div class="reveal">
+          <p class="section-label">Notre démarche</p>
+          <h2 class="section-title">Le respect du <em>vivant</em> avant tout</h2>
+        </div>
+        <div class="valeurs-list">
+          <div class="valeur reveal reveal-delay-1">
+            <span class="valeur-icon">🐝</span>
+            <div class="valeur-text">
+              <strong>Les abeilles au centre</strong>
+              <p>Nos pratiques sont guidées par le bien-être des colonies. Jamais au détriment de leurs réserves ou de leur équilibre naturel.</p>
+            </div>
+          </div>
+          <div class="valeur reveal reveal-delay-2">
+            <span class="valeur-icon">🌍</span>
+            <div class="valeur-text">
+              <strong>Ancrage local</strong>
+              <p>Un miel qui reflète véritablement les fleurs de la Côte Fleurie. Court circuit, transparence, proximité.</p>
+            </div>
+          </div>
+          <div class="valeur reveal reveal-delay-3">
+            <span class="valeur-icon">❤️</span>
+            <div class="valeur-text">
+              <strong>Une passion, pas une industrie</strong>
+              <p>Bees'Côte Fleurie est née de l'amour des abeilles et de la nature. Chaque geste est réfléchi, chaque intervention attentionnée.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="reveal">
+        <p class="section-label">Nous joindre</p>
+        <h2 class="section-title">Prenons <em>contact</em></h2>
+      </div>
+      <div class="contact-grid">
+        <div class="reveal reveal-delay-1">
+          <div class="contact-info-item">
+            <span>📞</span>
+            <a href="tel:0644260889">06 44 26 08 89</a>
+          </div>
+          <div class="contact-info-item">
+            <span>📩</span>
+            <a href="mailto:coursolle.cedric@gmail.com">coursolle.cedric@gmail.com</a>
+          </div>
+          <div class="contact-info-item">
+            <span>📍</span>
+            <span>Honfleur, Normandie</span>
+          </div>
+          <div class="social-links">
+            <a href="https://www.instagram.com/beescotefleurie" class="social-btn instagram" target="_blank">📸 Instagram</a>
+            <a href="https://www.facebook.com/share/1NJYEzJt3N/" class="social-btn facebook" target="_blank">👍 Facebook</a>
+          </div>
+        </div>
+        <div class="contact-deco reveal reveal-delay-2">
+          <p class="contact-deco-text">Miel <em>local</em>, savoir-faire <em>artisanal</em></p>
+          <p>N'hésitez pas à nous contacter pour toute question sur nos miels, nos pratiques apicoles ou pour un essaim à récupérer. Nous répondons avec plaisir.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="logo-footer">Bees'<span>Côte Fleurie</span></div>
+    <p>Apiculture artisanale à Honfleur · Côte Fleurie · Normandie</p>
+    <p style="margin-top:0.5rem;">© 2025 Bees'Côte Fleurie — Fait avec 🐝 et passion</p>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .activite-card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.15 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
